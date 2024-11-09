@@ -26,8 +26,8 @@ public class MakerController {
     private MakerService makerService;
 
     //Crear Nuevo Maker
-    @PostMapping("/save")
-    public ResponseEntity<Maker> createMaker(@RequestBody Maker maker){
+    @PostMapping("/save")  //Se ha eliminado el @RequestBody ya que es utilizado para recibir Json y aqui no los necesitamos
+    public ResponseEntity<Maker> createMaker(Maker maker){
         //llama la capa de servicio para guardar el maker en la base de datos
         Maker savedMaker = makerService.saveMaker(maker);
         //Devolver una respuesta HTTP CREATED con el objeto Maker guardado

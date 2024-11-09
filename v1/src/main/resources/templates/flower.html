@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Flower</title>
+</head>
+<body>
+    <h1>Crear una Nueva Flor</h1>
+    <form action="/Home/Flower/save" method="POST">
+        <label for="name">Flower Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="color">Flower Color</label>
+        <input type="text" id="color" name="color" required>
+
+        <label for="size">Flower Size</label>
+        <input type="text" id="size" name="size" required>
+
+        <label for="health">Flower health</label>
+        <input type="text" name="health" id="health" required>
+    
+        <label for="makerId">Maker ID:</label>
+        <input type="number" id="makerId" name="makerId" required>
+    
+        <button type="submit">Create Flower</button>
+    </form>
+
+    </form>
+    <a href="/">Volver al Inicio</a>
+</body>
+</html>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.florist.v1.Entities.Flower;
 import com.florist.v1.Services.FlowerService;
@@ -28,6 +29,7 @@ public class FlowerController {
     private FlowerService flowerService;
 
 
+
     @GetMapping()
     public List<Flower> getAllFlowers(){
         return flowerService.getAllFlowers();
@@ -38,10 +40,13 @@ public class FlowerController {
         return flowerService.getFlowerById(id);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Flower> saveFlower(@RequestBody Flower flower, @RequestParam Long id){
-        Flower savedFlower = flowerService.saveFlower(flower, id);
-        return new ResponseEntity<>(savedFlower,HttpStatus.CREATED);
+    //Guardar 
+    @PostMapping("/save") //Se ha eliminado el @RequestBody ya que es utilizado para recibir Json y aqui no los necesitamos
+    public RedirectView saveFlower(@RequestParam Long makerId, Flower flower) {
+        // Llamar al servicio pasando la flor y el makerId
+        flowerService.saveFlower(flower, makerId);
+        //Nos retorna a la pagina Principal
+        return new RedirectView("/HomePage/flowerPage");
     }
 
     @PutMapping("/update/{id}")
