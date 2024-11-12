@@ -29,12 +29,13 @@ public class FlowerController {
     private FlowerService flowerService;
 
 
-
+    //Listar Todo
     @GetMapping()
     public List<Flower> getAllFlowers(){
         return flowerService.getAllFlowers();
     }
 
+    //Buscar por Id
     @GetMapping("/find/{id}")
     public Optional<Flower> getFlowerById(@PathVariable Long id){
         return flowerService.getFlowerById(id);
@@ -49,12 +50,14 @@ public class FlowerController {
         return new RedirectView("/HomePage/flowerPage");
     }
 
+    //Actualizar Por Id
     @PutMapping("/update/{id}")
     public ResponseEntity<Flower> updateFlower(@PathVariable Long id, @RequestBody Flower flower, @RequestParam Long makerId){
         Flower updatedFlower = flowerService.updateFlower(id, flower, makerId);
         return new ResponseEntity<>(updatedFlower,HttpStatus.OK);
     }
 
+    //Borrar por Id
     @DeleteMapping("/delete/{id}")
     public void deleteFlower(@PathVariable Long id){
         flowerService.deleteFlowerById(id);

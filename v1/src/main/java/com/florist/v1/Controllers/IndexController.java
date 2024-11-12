@@ -1,7 +1,7 @@
 package com.florist.v1.Controllers;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class IndexController {
@@ -18,4 +18,9 @@ public class IndexController {
     public String makerPage(){
         return "maker";
     }
+    @GetMapping("/HomePage/makerList")
+    public String showMakerList(){
+        return "makerList";
+    }
+
 }
