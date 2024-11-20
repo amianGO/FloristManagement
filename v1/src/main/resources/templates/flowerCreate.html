@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Create a new Flower</h2>
+    <form th:action="@{/Flowers/save}" method="post">
+    
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color" required>
+        <br>
+        <label for="variedad">Variedad:</label>
+        <input type="text" id="variedad" name="variedad" required>
+        <br>
+        <label for="stock">stock</label>
+        <input type="number" id="stock" name="stock" required>
+        <br>
+        <label for="precio_venta">precio de venta</label>
+        <input type="number" id="precio_venta" name="precio_venta" required>
+        <br>
+        <label for="precio_compra">Precio de Compra: </label>
+        <input type="number" id="precio_compra" name="precio_compra" required>
+        <br>
+        <label for="fecha_ingreso">Fecha de Ingreso:</label>
+        <input type="datetime" id="fecha_ingreso" name="fecha_ingreso" required>
+        <br>
+        <label for="Ubicacion">Ubicacion:</label>
+        <input type="datetime" id="Ubicacion" name="Ubicacion" required>
+        <br>
+        <label for="maker">Id_Proveedor</label>
+        <input type="number" id="maker" name="maker" required>
+        <br>
+        <button type="submit"> Save Flower</button>
+        
+    </form>
+    <a th:href="@{/}">Back Home</a>
+</body>
+</html>
