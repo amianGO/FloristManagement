@@ -20,4 +20,9 @@ public class indexController {
     public String createMaker(){
         return "makerCreate";
     }
+
+    @GetMapping("/ViewRoles")
+    public String viewRoles(){
+        return "roles";
+    }
 }
