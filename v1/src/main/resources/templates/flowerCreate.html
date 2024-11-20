@@ -3,42 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Crear una nueva Flor</title>
+    <!-- Agregar Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h2>Create a new Flower</h2>
-    <form th:action="@{/Flowers/save}" method="post">
+    <!-- Incluir el fragmento navbar.html -->
+    <div th:replace="fragments/navbar :: navbar"></div>
     
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="color">Color:</label>
-        <input type="text" id="color" name="color" required>
-        <br>
-        <label for="variedad">Variedad:</label>
-        <input type="text" id="variedad" name="variedad" required>
-        <br>
-        <label for="stock">stock</label>
-        <input type="number" id="stock" name="stock" required>
-        <br>
-        <label for="precio_venta">precio de venta</label>
-        <input type="number" id="precio_venta" name="precio_venta" required>
-        <br>
-        <label for="precio_compra">Precio de Compra: </label>
-        <input type="number" id="precio_compra" name="precio_compra" required>
-        <br>
-        <label for="fecha_ingreso">Fecha de Ingreso:</label>
-        <input type="datetime" id="fecha_ingreso" name="fecha_ingreso" required>
-        <br>
-        <label for="Ubicacion">Ubicacion:</label>
-        <input type="datetime" id="Ubicacion" name="Ubicacion" required>
-        <br>
-        <label for="maker">Id_Proveedor</label>
-        <input type="number" id="maker" name="maker" required>
-        <br>
-        <button type="submit"> Save Flower</button>
+    <div class="container mt-5 contenedor_form">
         
-    </form>
-    <a th:href="@{/}">Back Home</a>
+        <form th:action="@{/Flowers/save}" method="post" class="needs-validation cards ancho" novalidate>
+            <h2 class="mb-4">Crear una nueva Flor</h2>
+            <h6 class="mb-4">Por favor, ingrese los datos de la flor</h6>
+            
+            <!-- Inicio de fila -->
+            <div class="row g-3">
+                <!-- Primera columna -->
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required>
+                        <label for="name">Nombre</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="color" name="color" placeholder="Enter color" required>
+                        <label for="color">Color</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="variedad" name="variedad" placeholder="Enter variety" required>
+                        <label for="variedad">Variedad</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock" required>
+                        <label for="stock">Stock</label>
+                    </div>
+                </div>
+
+                <!-- Segunda columna -->
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="precio_venta" name="precio_venta" placeholder="Enter selling price" required>
+                        <label for="precio_venta">Precio de Venta</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="precio_compra" name="precio_compra" placeholder="Enter purchase price" required>
+                        <label for="precio_compra">Precio de Compra</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="datetime-local" class="form-control" id="fecha_ingreso" name="fecha_ingreso" placeholder="Enter entry date" required>
+                        <label for="fecha_ingreso">Fecha de Ingreso</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="Ubicacion" name="Ubicacion" placeholder="Enter location" required>
+                        <label for="Ubicacion">Ubicación</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin de fila -->
+            
+            <!-- Campo de ID Proveedor (columna completa) -->
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="maker" name="maker" placeholder="Enter provider ID" required>
+                <label for="maker">ID Proveedor</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar Flor</button>
+            <a th:href="@{/}" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+    </div>
+
+    <!-- Agregar Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
