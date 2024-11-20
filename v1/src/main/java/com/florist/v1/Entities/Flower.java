@@ -24,20 +24,28 @@ public class Flower {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(name = "Tipo")
     private String tipo;
+
     @Column(name = "Color")
     private String color;
+
     @Column(name = "Variedad")
     private String variedad;
+
     @Column(name = "Stock")
     private long stock;
+
     @Column(name = "Precio_Venta")
     private long precio_venta;
+
     @Column(name = "Precio_Compra")
     private long precio_compra;
+    
     @Column(name = "Fecha_Ingreso")
     private Date fecha_ingreso;
+    
     @Column(name = "Ubicacion")
     private String Ubicacion;
 
