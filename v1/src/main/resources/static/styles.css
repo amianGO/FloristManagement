@@ -1,0 +1,18 @@
+.cards{
+    padding: 5%;
+}
+.ancho{
+    width: 50%;
+    
+}
+.contenedor_form{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+#titulo{
+   
+
+    margin-bottom:20px;
+}

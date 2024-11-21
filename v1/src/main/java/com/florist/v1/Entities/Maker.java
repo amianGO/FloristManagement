@@ -3,6 +3,8 @@ package com.florist.v1.Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,10 +17,12 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "flowers")
 @Data
 @Table(name = "Proveedores")
 public class Maker {
@@ -37,5 +41,6 @@ public class Maker {
     private String direccion;
 
     @OneToMany(mappedBy = "maker", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
     private List<Flower> flowers = new ArrayList<>();
 }
