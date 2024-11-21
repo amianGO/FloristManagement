@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lsita de Proveedores</title>
+</head>
+<body>
+    <h1>Lista de Proveedores</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Nit</th>
+                <th>Empresa</th>
+                <th>Contacto</th>
+                <th>Direccion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="maker : ${makers}">
+                <td th:text="${maker.id}">ID</td>
+                <td th:text="${maker.name}">Nombre</td>
+                <td th:text="${maker.nit}">NIT</td>
+                <td th:text="${maker.empresa}">Empresa</td>
+                <td th:text="${maker.contacto}">Contacto</td>
+                <td th:text="${maker.direccion}">Direccion</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+<a th:href="@{/}">Back Home</a>
+</html>

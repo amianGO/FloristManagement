@@ -1,7 +1,10 @@
 package com.florist.v1.Controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,5 +21,12 @@ public class MakerController {
     public String saveMaker(Maker maker){
         makerService.save(maker);
         return "makerCreate"; //Aqui ira la plantilla a usar
+    }
+
+    @GetMapping("/List")
+    public String listMakers(Model model){
+        model.addAttribute("makers", makerService.findAll());
+        System.out.println(makerService.findAll());
+        return "makerList";
     }
 }
