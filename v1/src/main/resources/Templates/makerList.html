@@ -36,8 +36,11 @@
                 </td>
                 <td>
                     <div class="d-flex gap-2">
-                        <a href="" class="btn btn-primary">Editar</a>
-                        <form action="">
+
+                        <a th:href="@{/Makers/edit/{id}(id=${maker.id})}" class="btn btn-primary">Editar</a>
+
+                        <form th:action="@{/Makers/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${maker.id}">
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
                     </div>

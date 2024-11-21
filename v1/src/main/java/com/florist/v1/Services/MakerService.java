@@ -1,6 +1,7 @@
 package com.florist.v1.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class MakerService {
     //Leer
     public List<Maker> findAll(){
         return makerRepository.findAll();
+    }
+
+    public Optional<Maker> findById(Long id){
+        return makerRepository.findById(id);
     }
 
     //Borrar
