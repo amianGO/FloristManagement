@@ -5,8 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.florist.v1.Entities.Flower;
 import com.florist.v1.Services.FlowerService;
@@ -27,6 +30,26 @@ public class FlowerController {
     public String listFlower(Model model){
         model.addAttribute("Flowers", flowerService.findFlowers());
         return "flowerList";
+    }
+
+    @PostMapping("/edit")
+    public String editFlower(@ModelAttribute Flower flower){
+        flowerService.save(flower);
+        return "redirect:/Flowers/List";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model){
+        Flower flower = flowerService.findById(id).
+            orElseThrow(()-> new IllegalArgumentException("Flor no encontrada con ID:" + id));
+            model.addAttribute("flower", flower);
+        return "flowerEdit";
+    }
+    
+    @PostMapping("/delete")
+    public String deleteFlower(@RequestParam Long id){
+        flowerService.deleteById(id);
+        return "redirect:/Flowers/List";
     }
 
 }

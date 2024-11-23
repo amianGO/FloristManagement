@@ -1,6 +1,5 @@
 package com.florist.v1.Entities;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,7 +50,7 @@ public class Flower {
     private long precio_compra;
     
     @Column(name = "Fecha_Ingreso")
-    private Date fecha_ingreso;
+    private LocalDateTime fecha_ingreso;
     
     @Column(name = "Ubicacion")
     private String Ubicacion;

@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles.css">
     <title>Lsita de Proveedores</title>
 </head>
 <body>
-    <h1>Lista de Proveedores</h1>
+
+    <div th:replace = "fragments/navbar :: navbar"></div>
+    
+    <div class="cards">
+        <h1>Lista de Proveedores</h1>
     <table border="1" class="table">
         <thead>
             <tr>
@@ -35,16 +42,103 @@
                     </ul>
                 </td>
                 <td>
-                    <div class="d-flex gap-2">
-                        <a href="" class="btn btn-primary">Editar</a>
-                        <form action="">
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <div class="d-flex gap-2" style="margin-right: -20px;">
+
+                        <a href="#" class="btn btn-primary edit-button" 
+                           data-bs-toggle="modal" 
+                           data-bs-target="#editModal"
+                           th:data-id="${maker.id}"
+                           th:data-name="${maker.name}"
+                           th:data-nit="${maker.nit}"
+                           th:data-empresa="${maker.empresa}"
+                           th:data-contacto="${maker.contacto}"
+                           th:data-direccion="${maker.direccion}"
+                        >
+                            <i class="bi bi-pencil"></i>
+                        </a>
+
+                        <form th:action="@{/Makers/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${maker.id}">
+                            <button title="eliminar" data-bs-toggle="tooltip"  type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                         </form>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
+
+     <!-- Modal -->
+     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form th:action="@{/Makers/edit}" method="post">
+              <input type="hidden" name="id" id="modalMakerId">
+  
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Proveedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+  
+              <div class="modal-body">
+                <!-- Campos del formulario -->
+                <div class="mb-3">
+                  <label for="modalName" class="form-label">Nombre:</label>
+                  <input type="text" class="form-control" id="modalName" name="name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="modalNit" class="form-label">NIT:</label>
+                  <input type="number" class="form-control" id="modalNit" name="nit" required>
+                </div>
+                <div class="mb-3">
+                  <label for="modalEmpresa" class="form-label">Empresa:</label>
+                  <input type="text" class="form-control" id="modalEmpresa" name="empresa" required>
+                </div>
+                <div class="mb-3">
+                  <label for="modalContacto" class="form-label">Contacto:</label>
+                  <input type="number" class="form-control" id="modalContacto" name="contacto" required>
+                </div>
+                <div class="mb-3">
+                  <label for="modalDireccion" class="form-label">Dirección:</label>
+                  <input type="text" class="form-control" id="modalDireccion" name="direccion" required>
+                </div>
+              </div>
+  
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    <a th:href="@{/}" class="btn btn-secondary ms-2">Regresar</a>
+    </div>
+    <!-- Bootstrap JS  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript para poblar el modal -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var editModal = document.getElementById('editModal');
+      editModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var name = button.getAttribute('data-name');
+        var nit = button.getAttribute('data-nit');
+        var empresa = button.getAttribute('data-empresa');
+        var contacto = button.getAttribute('data-contacto');
+        var direccion = button.getAttribute('data-direccion');
+
+        // Asigna los valores a los campos del formulario
+        document.getElementById('modalMakerId').value = id;
+        document.getElementById('modalName').value = name;
+        document.getElementById('modalNit').value = nit;
+        document.getElementById('modalEmpresa').value = empresa;
+        document.getElementById('modalContacto').value = contacto;
+        document.getElementById('modalDireccion').value = direccion;
+      });
+    });
+    </script>
 </body>
-<a th:href="@{/}" class="btn btn-secondary ms-2">Regresar</a>
+
 </html>

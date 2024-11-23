@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
     <title>Document</title>
 </head>
 <body>
+    <div th:replace = "fragments/navbar :: navbar"></div>
+    <div class="cards">
     <h1>Lista de Flores</h1>
     <table class="table">
         <thead>
@@ -37,16 +41,137 @@
                 <td th:text="${flower.Ubicacion}"></td>
                 <td th:each="maker : ${flower.maker}" th:text="${maker.id}">Proveedor</td>
                 <td>
-                    <div class="d-flex gap-2">
-                    <a href="" class="btn btn-primary">Editar</a>
-                    <form action="">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
+                    <div class="d-flex gap-2" style="margin-right: -20px;">
+                        <a href="#" class="btn btn-primary edit-button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editModal"
+                        th:data-id="${flower.id}"
+                        th:data-tipo="${flower.tipo}"
+                        th:data-color="${flower.color}"
+                        th:data-variedad="${flower.variedad}"
+                        th:data-stock="${flower.stock}"
+                        th:data-precio_venta="${flower.precio_venta}"
+                        th:data-precio_compra="${flower.precio_compra}"
+                        th:data-fecha_ingreso="${flower.fecha_ingreso}"
+                        th:data-ubicacion="${flower.ubicacion}"
+                        th:data-maker="${flower.maker.id}"
+                        >
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form th:action="@{/Flowers/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${flower.id}">
+                            <button title="eliminar" data-bs-toggle="tooltip"  type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                        </form>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/Flowers/edit}" method="post">
+                    <input type="hidden" name="id" id="modalFlowerId">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar Flor</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- Campos Para Editar -->
+
+                        <div class="mb-3">
+                            <label for="modalTipo" class="form-label">Tipo: </label>
+                            <input type="text" name="tipo" id="modalTipo" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalColor" class="form-label">Color: </label>
+                            <input type="text" name="color" id="modalColor" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalVariedad" class="form-label">Variedad: </label>
+                            <input type="text" name="variedad" id="modalVariedad" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalStock" class="form-label">Stock: </label>
+                            <input type="number" name="stock" id="modalStock" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalPrecio_venta" class="form-label">Precio de Venta: </label>
+                            <input type="number" name="precio_venta" id="modalPrecio_venta" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalPrecio_compra" class="form-label">Precio de Compra: </label>
+                            <input type="number" name="precio_venta" id="modalPrecio_compra" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalFecha_ingreso" class="form-label">Fecha de Ingreso: </label>
+                            <input type="datetime-local" name="fecha_ingreso" id="modalFecha_ingreso" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalUbicacion">Ubicacion: </label>
+                            <input type="text" name="ubicacion" id="modalUbicacion" class="form-control" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="modalMaker">Proveedor: </label>
+                            <input type="text" name="maker" id="modalMaker" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
     <a th:href="@{/}" class="btn btn-secondary ms-2">Regresar</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Como Poblar el Modal -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var editModal = document.getElementById('editModal');
+      editModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var tipo = button.getAttribute('data-tipo');
+        var color = button.getAttribute('data-color');
+        var variedad = button.getAttribute('data-variedad');
+        var stock = button.getAttribute('data-stock');
+        var precio_venta = button.getAttribute('data-precio_venta');
+        var precio_compra = button.getAttribute('data-precio_compra');
+        var fecha_ingreso = button.getAttribute('data-fecha_ingreso');
+        var ubicacion = button.getAttribute('data-ubicacion');
+        var maker = button.getAttribute('data-maker');
+
+        // Asigna los valores a los campos del formulario
+        document.getElementById('modalFlowerId').value = id;
+        document.getElementById('modalTipo').value = tipo;
+        document.getElementById('modalColor').value = color;
+        document.getElementById('modalVariedad').value = variedad;
+        document.getElementById('modalStock').value = stock;
+        document.getElementById('modalPrecio_venta').value = precio_venta;
+        document.getElementById('modalPrecio_compra').value = precio_compra;
+        document.getElementById('modalFecha_ingreso').value = fecha_ingreso;
+        document.getElementById('modalUbicacion').value = ubicacion;
+        document.getElementById('modalMaker').value = maker;
+      });
+    });
+</script>
+
 </body>
 </html>
