@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.florist.v1.Entities.Usuario;
+import com.florist.v1.Repositories.RolRepository;
 import com.florist.v1.Repositories.UsuarioRepository;
 
 @Service
@@ -19,6 +20,44 @@ public class UsuarioService implements UserDetailsService {
     
     @Autowired
    private UsuarioRepository usuarioRepository;
+
+   @Autowired
+    private RolRepository roleRepository;  // Si estás gestionando roles como entidades
+
+    // Obtener todos los usuarios
+    public List<Usuario> getAllUsers() {
+        return usuarioRepository.findAll();
+    }
+
+    // Crear un nuevo usuario
+    public Usuario saveUser(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
+    // Obtener un usuario por ID
+    public Usuario getUserById(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+    }
+
+    // Actualizar un usuario
+    public Usuario updateUser(Long id, Usuario updatedUser) {
+        Usuario existingUser = usuarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setPassword(updatedUser.getPassword());  // Asegúrate de encriptar la contraseña
+        existingUser.setRoles(updatedUser.getRoles());  // Asignación de roles
+
+        return usuarioRepository.save(existingUser);
+    }
+
+    // Eliminar un usuario por ID
+    public void deleteUser(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        usuarioRepository.delete(usuario);
+    }
 
      @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

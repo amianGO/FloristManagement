@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class indexController {
     
-   /*  @GetMapping("/")
+    @GetMapping("/")
     public String showHomePage(){
         return "home";  //index.html es la pagina de inicio del administrador, home.html es la pagina de inicio del usuario
-    } */
+    } 
 
     @GetMapping("/index")
     public String showIndex(){
@@ -31,7 +31,7 @@ public class indexController {
         return "roles";
     }
 
-    @GetMapping("/loginView")
+    @GetMapping("/login")
     public String createUser(){
         return "loginView";
     }

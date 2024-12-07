@@ -36,7 +36,10 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home").permitAll() // Página principal accesible sin login
+                .requestMatchers("/", "/home","/Flower/List").permitAll() // Página principal accesible sin login
+                .requestMatchers("/CreateFlowers","/CreateMakers").hasRole("ADMIN")
+                .requestMatchers("/index").hasRole("ADMIN") // Solo ADMIN puede crear, editar y eliminar
+                .requestMatchers("/Makers/**").hasRole("ADMIN")
                 .requestMatchers("/admin/**").hasRole("ADMIN") // Solo ADMIN puede acceder
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") // USER o ADMIN
                 .anyRequest().authenticated() // Cualquier otra ruta requiere autenticación
@@ -44,6 +47,7 @@ public class SecurityConfig{
             .formLogin(login -> login
                 .loginPage("/login") // Página de login personalizada
                 .permitAll()
+                .defaultSuccessUrl("/index")
             )
             .logout(logout -> logout.permitAll()); // Configuración de logout
 

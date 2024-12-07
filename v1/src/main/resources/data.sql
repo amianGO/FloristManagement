@@ -1,11 +1,16 @@
+-- Insertar roles si no existen
+INSERT INTO roles (name) VALUES ('ROLE_USER');
+INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
 
-INSERT INTO Proveedores (Nombre, Nit, Empresa, Contacto, Direccion) VALUES
-('Juan Pérez', 123456789, 'Flores del Sol', 5551234, 'Calle 1 #10-20'),
-('Ana Gómez', 987654321, 'Orquídeas Hermosas', 5555678, 'Carrera 15 #20-30'),
-('Carlos López', 456789123, 'Rosas y Más', 5557890, 'Avenida 45 #50-60');
+-- Insertar usuarios con las contraseñas codificadas
+INSERT INTO usuarios (username, password) VALUES ('user1', '$2a$10$.6n1ogoKZFCBBu3LsspTmOk4alLUE0Hgw8EtdBGNVFanawmlcHTJy');
+INSERT INTO usuarios (username, password) VALUES ('admin1', '$2a$10$kJrulbwKc0VXC79eBJ7kMuhbRgxkj4kMsdSM3JZ7v4EjVYNAzhL7m');
 
-INSERT INTO Inventario_Floral (Tipo, Color, Variedad, Stock, Precio_Venta, Precio_Compra, Fecha_Ingreso, Ubicacion, Id_Proveedor) VALUES
-('Rosa', 'Rojo', 'Premium', 100, 5000, 3000, '2024-11-01 10:00:00', 'Almacén A1', 1),
-('Orquídea', 'Blanco', 'Phalaenopsis', 50, 15000, 10000, '2024-11-05 12:00:00', 'Almacén B2', 2),
-('Clavel', 'Rosado', 'Estándar', 200, 2000, 1000, '2024-11-10 14:00:00', 'Almacén C3', 3),
-('Lirio', 'Amarillo', 'Oriental', 75, 8000, 5000, '2024-11-15 16:00:00', 'Almacén D4', 1);
+-- Asociar roles a los usuarios
+INSERT INTO usuario_roles (usuario_id, role_id) 
+SELECT user_id, rol_id FROM usuarios u
+JOIN roles r ON r.name = 'ROLE_USER' WHERE u.username = 'user1';
+
+INSERT INTO usuario_roles (usuario_id, role_id) 
+SELECT user_id, rol_id FROM usuarios u
+JOIN roles r ON r.name = 'ROLE_ADMIN' WHERE u.username = 'admin1';
