@@ -16,3 +16,13 @@
 
     margin-bottom:20px;
 }
+
+.cardhome{
+    display: flex;
+    width: 20%;
+    margin-bottom: 20px;
+    margin: 5px;
+    padding: 5px;
+    justify-content: center;
+    
+}
