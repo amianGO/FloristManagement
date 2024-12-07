@@ -40,7 +40,7 @@ public class Maker {
     @Column(name = "direccion")
     private String direccion;
 
-    @OneToMany(mappedBy = "maker", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "maker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Flower> flowers = new ArrayList<>();
 }
