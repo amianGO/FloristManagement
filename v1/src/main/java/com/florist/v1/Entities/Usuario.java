@@ -2,7 +2,8 @@ package com.florist.v1.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -13,19 +14,16 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Long idUsuario;
+    private Long id;
+    
+    private String username;
+    private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "id_rol")
-    private Rol rol;
-
-    private String nombre;
-    private String apellido;
-    private String tel;
-    private String correo;
-    private String direccion;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Pedido> pedidos;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "usuario_roles",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Rol> roles;
 }

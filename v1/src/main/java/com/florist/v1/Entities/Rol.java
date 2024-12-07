@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    private String descripcion;
+    private Long id;
+    
+    private String name;
         
 }

@@ -10,23 +10,5 @@ import com.florist.v1.Repositories.RolRepository;
 
 @Service
 public class RolService {
-    @Autowired
-    private RolRepository rolRepository;
-
-    public void save(Rol rol) {
-        rolRepository.save(rol);
-    }
-
-    public List<Rol> findRol () {
-        return rolRepository.findAll();
-    }
-
-    public void deleteById (Long id) {
-        rolRepository.deleteById(id);
-    }
-
-
-
-
 
 }
