@@ -29,15 +29,15 @@ public class Maker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "Nombre")
+    @Column(name = "nombre")
     private String name;
-    @Column(name = "Nit")
+    @Column(name = "nit")
     private long nit;
-    @Column(name = "Empresa")
+    @Column(name = "empresa")
     private String empresa;
-    @Column(name = "Contacto")
+    @Column(name = "contacto")
     private long contacto;
-    @Column(name = "Direccion")
+    @Column(name = "direccion")
     private String direccion;
 
     @OneToMany(mappedBy = "maker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
